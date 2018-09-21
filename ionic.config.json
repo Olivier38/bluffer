@@ -1,0 +1,7 @@
+{
+  "name": "bluffer",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
