@@ -1,14 +1,75 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-slides pager="true" *ngIf="!introEnd">
+  <ion-slide>
+    <h2>Comment jouer ?</h2>
+    <p class="introContent">Lisez la question à haute voix sans lire la réponse. <br> Passez ensuite le jeu aux autres joueurs.</p>
+    <img src="assets/imgs/tuto-1.png" style="width: 225px" alt="">
+    <button class="skipBtn"(click)="introEnd = true; shuffleCards(cards); setI();" bottom center ion-button full clear>P<span class="skipBtnTxt">asser l'intro</span></button>
+  </ion-slide>
+  <ion-slide>
+    <h2>Comment jouer ?</h2>
+    <p class="introContent">Tour à tour, les autres joueurs lisent la réponse. Ils peuvent décider de l'annoncer ou d'en inventer une fausse !</p> 
+    <img src="assets/imgs/tuto2.png" style="width: 350px" alt="">
+    <button class="skipBtn" (click)="introEnd = true; shuffleCards(cards); setI();" bottom center ion-button full clear>P<span class="skipBtnTxt">asser l'intro</span></button>
+  </ion-slide>
+  <ion-slide>
+    <h2>Comment jouer ?</h2>
+    <p class="introContent">&Agrave; vous de deviner qu'elle est la vraie réponse !</p>
+    <img src="assets/imgs/tuto-3.png" style="width: 225px" alt="">
+    <button class="skipBtn" (click)="introEnd = true; shuffleCards(cards); setI();" bottom center ion-button full clear>C<span class="skipBtnTxt">'est parti !</span></button>
+  </ion-slide>
+</ion-slides>
+
+ <ion-grid *ngIf="introEnd">
+  <ion-slides (ionSlideWillChange)="getRandom()">
+    <ion-slide ngFor="let card of cards">
+      <ion-col class="answerbtn">
+        <ion-card>
+          <ion-card-content>
+            <ion-row class="question">
+            {{cards[i].question}} 
+            </ion-row>
+            <ion-col class="devider">
+            </ion-col>
+            <ion-row class="answer ; fadeIn" *ngIf="answerVisible">
+                <ion-col col-12> <!-- {{cards.answer}} --></ion-col>
+                <ion-col col-12><p class="moreInfo"><!-- {{cards.hint}} --></p></ion-col>
+            </ion-row>            
+            <ion-col class="devider">
+            </ion-col>
+            <ion-row class="answerbtn">
+              <button bottom center ion-button full clear (click)="answerVisible = !answerVisible">
+                <span *ngIf="!answerVisible">Voir la réponse</span>
+                <span *ngIf="answerVisible">Masquer la réponse</span>
+              </button>
+              <ion-row>
+              {{i}}
+            </ion-row>
+            </ion-row>
+          </ion-card-content>
+       </ion-card>
+      </ion-col>
+    </ion-slide> 
+  </ion-slides>
+  <!-- <ion-row ngFor="let card of cards">
+  {{cards.question}} </ion-row>
+  <ion-fab bottom left>
+    <button ion-fab (click)="loadCard()"><ion-icon name="add">load</ion-icon>
+          </button>
+  </ion-fab>
+  <ion-fab bottom right>
+    <button ion-fab (click)="showCard()"><ion-icon name="add">show</ion-icon>
+          </button>
+  </ion-fab>-->
+    <ion-fab>
+    <button ion-fab right (click)="saveCards()"><ion-icon name="add">clear</ion-icon>
+          </button>
+  </ion-fab> 
+   <ion-fab bottom center>
+    <button ion-fab (click)="answerVisible = false; startText = 'Nouvelle carte'; setI();"><ion-icon name="add"></ion-icon>
+          </button>
+  </ion-fab>
+
+  </ion-grid>
 </ion-content>
