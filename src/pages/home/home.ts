@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
 
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -10,15 +11,37 @@ import { AlertController } from 'ionic-angular';
 export class HomePage {
   cards:any = [];
   i: number;
+  introEnd: boolean;
 
-  constructor(public navCtrl: NavController, private storage: Storage,) {
+  constructor(public navCtrl: NavController, private storage: Storage, private alertCtrl: AlertController) {
+    this.introEnd = false;
     this.i = 0;
   }
 
   ngOnInit() {
-    if (this.cards.length = 0) {
+    this.i = 0;
+    this.storage.get("shuffled").then(cards => {
+      this.cards = cards;
+      console.log("here are the saved cards " + this.cards);
+    });
+    this.storage.get("i").then(i => {
+      this.i = i;
+      console.log("i = " + this.i);
+  });
+  }
+
+  deleteStorage() {
+    this.loadCards();
+    console.log("game restart");
+    this.i = 0;
+    console.log(this.i);
+    this.storage.set("i", this.i);
+    this.introEnd = false;
+  }
+
+  loadCards() {
     this.cards = [
-        {id: '1', question: '1', answer: 'kdckdlqkn.', hint: 'Les chercheurs voulaient simplement vérifier sil restait du café dans la pièce dà côté.'},
+        {id: '1', question: '1', answer: 'kdckdlqkn.', hint: 'foeofu'},
         {id: '2', question: '2', answer: 'xnqspin', hint: 'xnsin'},
         {id: '3', question: '3', answer: 'xnqcksjd cjspin', hint: 'xnsij dljn'}, 
         {id: '4', question: '4', answer: 'xnqscljqs cpin', hint: 'xnscqns ljin'}, 
@@ -31,52 +54,25 @@ export class HomePage {
         {id: '11', question: '11', answer: 'knk', hint: 'xklnknsin'}, 
         {id: '12', question: '12', answer: 'knk', hint: 'xklnknsin'}, 
     ];
-      console.log(this.cards);
-      this.storage.set("shuffled", this.cards);
-      alert("new cards loaded");
-    }
-    else {
-      this.storage.get("shuffled").then(cards => {
-        this.cards = cards;
-        console.log("only in here can we see " + this.cards);
-      });
-      this.storage.get("i").then(i => {
-        this.i = i;
-        console.log("only in here can we see " + this.i);
-      });
-    }
-  }
-
- 
-/*  loadCard() {
-    this.cards = [
-        {id: '1', question: 'lkndlkc', answer: 'kdckdlqkn.',
-        hint: 'Les chercheurs voulaient simplement vérifier sil restait du café dans la pièce dà côté.'},
-        {id: '2', question: 'bla', answer: 'xnqspin', hint: 'xnsin'}, 
-        {id: '3', question: 'csnd', answer: 'xnqcksjd cjspin', hint: 'xnsij dljn'}, 
-        {id: '4', question: 'bqlksncla', answer: 'xnqscljqs cpin', hint: 'xnscqns ljin'}, 
-        {id: '5', question: 'blalqjsx', answer: 'xnlqjsnxqspin', hint: 'xnsqlksnxin'}, 
-        {id: '6', question: '11', answer: 'knk', hint: 'xklnknsin'}, 
-    ];
-    console.log(this.cards)
-  };
-
-  saveCard() {
+    this.shuffleCards(this.cards)
     this.storage.set("shuffled", this.cards);
-  };
-  showCard() {
-    this.storage.get("shuffled").then(cards => this.cards = cards);
-    console.log(this.cards)
-  };*/
+    }
+
   setI() {
     this.i++;
-    console.log(this.i)
+    console.log("i = " + this.i)
     this.storage.set("i", this.i);
   }
 
-  saveCards() {
-    this.storage.set("shuffled", this.cards);
-    console.log(this.cards)
+  loadSavedCards() {
+    this.storage.get("shuffled").then(cards => {
+      this.cards = cards;
+      console.log("here are the saved cards " + this.cards);
+    });
+    this.storage.get("i").then(i => {
+      this.i = i;
+      console.log("i = " + this.i);
+  });
   }
 
  shuffleCards(cards) {
@@ -90,6 +86,5 @@ export class HomePage {
       cards[randomIndex] = temporaryValue;
     };
     console.log(this.cards);
-    console.log(this.cards[1]);
   }
 }

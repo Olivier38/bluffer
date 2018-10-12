@@ -1,28 +1,34 @@
 
 <ion-content padding>
-<ion-slides pager="true" *ngIf="!introEnd">
-  <ion-slide>
+<ion-slides pager="true" *ngIf="introEnd == false">
+<ion-slide *ngIf="this.i != 0">
     <h2>Comment jouer ?</h2>
-    <p class="introContent">Lisez la question à haute voix sans lire la réponse. <br> Passez ensuite le jeu aux autres joueurs.</p>
-    <img src="assets/imgs/tuto-1.png" style="width: 225px" alt="">
-    <button class="skipBtn"(click)="introEnd = true; shuffleCards(cards); setI();" bottom center ion-button full clear>P<span class="skipBtnTxt">asser l'intro</span></button>
+    <p class="introContent">Nice to see you again</p>
+    <img src="assets/imgs/intro-1.png" style="width: 225px" alt="">
+    <button class="skipBtn"(click)="loadSavedCards(); introEnd = true;" bottom center ion-button full clear>P<span class="skipBtnTxt">asser l'intro</span></button>
   </ion-slide>
-  <ion-slide>
+  <ion-slide *ngIf="this.i == 0">
     <h2>Comment jouer ?</h2>
-    <p class="introContent">Tour à tour, les autres joueurs lisent la réponse. Ils peuvent décider de l'annoncer ou d'en inventer une fausse !</p> 
-    <img src="assets/imgs/tuto2.png" style="width: 350px" alt="">
-    <button class="skipBtn" (click)="introEnd = true; shuffleCards(cards); setI();" bottom center ion-button full clear>P<span class="skipBtnTxt">asser l'intro</span></button>
+    <p class="introContent">ipsum.</p>
+    <img src="assets/imgs/intro-1.png" style="width: 225px" alt="">
+    <button class="skipBtn"(click)="loadCards(); introEnd = true;" bottom center ion-button full clear>P<span class="skipBtnTxt">asser l'intro</span></button>
   </ion-slide>
-  <ion-slide>
+  <ion-slide *ngIf="this.i == 0">
     <h2>Comment jouer ?</h2>
-    <p class="introContent">&Agrave; vous de deviner qu'elle est la vraie réponse !</p>
-    <img src="assets/imgs/tuto-3.png" style="width: 225px" alt="">
-    <button class="skipBtn" (click)="introEnd = true; shuffleCards(cards); setI();" bottom center ion-button full clear>C<span class="skipBtnTxt">'est parti !</span></button>
+    <p class="introContent">dolor</p> 
+    <img src="assets/imgs/intro2.png" style="width: 350px" alt="">
+    <button class="skipBtn" (click)="loadCards(); introEnd = true;" bottom center ion-button full clear>P<span class="skipBtnTxt">asser l'intro</span></button>
+  </ion-slide>
+  <ion-slide *ngIf="this.i == 0">
+    <h2>Comment jouer ?</h2>
+    <p class="introContent">amet</p>
+    <img src="assets/imgs/intro-3.png" style="width: 225px" alt="">
+    <button class="skipBtn" (click)="loadCards(); introEnd = true;" bottom center ion-button full clear>C<span class="skipBtnTxt">'est parti !</span></button>
   </ion-slide>
 </ion-slides>
 
- <ion-grid *ngIf="introEnd">
-  <ion-slides (ionSlideWillChange)="getRandom()">
+ <ion-grid *ngIf="introEnd == true">
+  <ion-slides>
     <ion-slide ngFor="let card of cards">
       <ion-col class="answerbtn">
         <ion-card>
@@ -33,8 +39,8 @@
             <ion-col class="devider">
             </ion-col>
             <ion-row class="answer ; fadeIn" *ngIf="answerVisible">
-                <ion-col col-12> <!-- {{cards.answer}} --></ion-col>
-                <ion-col col-12><p class="moreInfo"><!-- {{cards.hint}} --></p></ion-col>
+                <ion-col col-12> {{cards[i].answer}} </ion-col>
+                <ion-col col-12><p class="moreInfo"> {{cards[i].hint}} </p></ion-col>
             </ion-row>            
             <ion-col class="devider">
             </ion-col>
@@ -44,26 +50,15 @@
                 <span *ngIf="answerVisible">Masquer la réponse</span>
               </button>
               <ion-row>
-              {{i}}
             </ion-row>
             </ion-row>
           </ion-card-content>
        </ion-card>
-      </ion-col>
+      </ion-col>{{this.i}}
     </ion-slide> 
   </ion-slides>
-  <!-- <ion-row ngFor="let card of cards">
-  {{cards.question}} </ion-row>
-  <ion-fab bottom left>
-    <button ion-fab (click)="loadCard()"><ion-icon name="add">load</ion-icon>
-          </button>
-  </ion-fab>
-  <ion-fab bottom right>
-    <button ion-fab (click)="showCard()"><ion-icon name="add">show</ion-icon>
-          </button>
-  </ion-fab>-->
     <ion-fab>
-    <button ion-fab right (click)="saveCards()"><ion-icon name="add">clear</ion-icon>
+    <button ion-fab right (click)="deleteStorage()">clear
           </button>
   </ion-fab> 
    <ion-fab bottom center>
