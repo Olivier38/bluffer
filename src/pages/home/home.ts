@@ -2,6 +2,7 @@ import { Component, } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
+/*import { SomeProvider } from '../providers/deck/deck';*/
 
 
 @Component({
@@ -12,22 +13,16 @@ export class HomePage {
   cards:any = [];
   i: number;
   introEnd: boolean;
+  started: boolean;
 
-  constructor(public navCtrl: NavController, private storage: Storage, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, private storage: Storage, private alertCtrl: AlertController, /*public deckService: DeckProvider*/) {
+    this.started = false;
     this.introEnd = false;
     this.i = 0;
   }
 
   ngOnInit() {
-    this.i = 0;
-    this.storage.get("shuffled").then(cards => {
-      this.cards = cards;
-      console.log("here are the saved cards " + this.cards);
-    });
-    this.storage.get("i").then(i => {
-      this.i = i;
-      console.log("i = " + this.i);
-  });
+     
   }
 
   deleteStorage() {
@@ -36,7 +31,6 @@ export class HomePage {
     this.i = 0;
     console.log(this.i);
     this.storage.set("i", this.i);
-    this.introEnd = false;
   }
 
   loadCards() {
@@ -62,8 +56,13 @@ export class HomePage {
     this.i++;
     console.log("i = " + this.i)
     this.storage.set("i", this.i);
+    console.log("stack des cards " + this.cards);
   }
 
+  saveCards() {
+    this.storage.set("i", this.i);
+    this.storage.set("shuffled", this.cards);
+  }
   loadSavedCards() {
     this.storage.get("shuffled").then(cards => {
       this.cards = cards;
@@ -73,6 +72,31 @@ export class HomePage {
       this.i = i;
       console.log("i = " + this.i);
   });
+  }
+
+  saveIntroEndTrue() {
+    this.introEnd = true;
+    this.storage.set("introEnd", this.introEnd);
+    console.log("la valeur de introEnd est " + this.introEnd);
+  }
+  saveIntroEndFalse() {
+    this.introEnd = false;
+    this.storage.set("introEnd", this.introEnd);
+    console.log("la valeur de introEnd est " + this.introEnd);
+  }
+
+  start() {
+    this.storage.get("i").then(i => {
+      this.i = i;
+      console.log("i = " + this.i);
+     });
+    console.log("la valeur de i est " + this.i);
+    if (this.i == 0) {
+      this.deleteStorage();
+     }
+    else {
+      this.loadSavedCards();
+    }
   }
 
  shuffleCards(cards) {

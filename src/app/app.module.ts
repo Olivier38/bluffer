@@ -7,7 +7,8 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-
+/*import { DeckProvider } from '../providers/deck/deck';
+*/
 @NgModule({
   declarations: [
     MyApp,
@@ -27,6 +28,7 @@ import { HomePage } from '../pages/home/home';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler,},
+/*    DeckProvider,*/
   ]
 })
 export class AppModule {}

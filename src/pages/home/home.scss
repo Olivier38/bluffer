@@ -92,12 +92,18 @@ page-home {
 
     .fadeIn {
     animation-name: fadeIn;
-    animation-duration: 1.3s;
+    animation-duration: .5s;
     -webkit-transition: .5s ease all;
     -moz-transition: .5s ease all;
     -ms-transition: .5s ease all;
     -o-transition: .5s ease all;
     transition: .5s ease all;
+	}
+	.restart {
+		text-align: center;
+		font-size: 0.9em;
+		text-decoration: none;
+		color: #B2B2B2;
 	}
 
 }

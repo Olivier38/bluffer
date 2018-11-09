@@ -1,51 +1,60 @@
 
 <ion-content padding>
 <ion-slides pager="true" *ngIf="introEnd == false">
-<ion-slide *ngIf="this.i != 0">
+<!-- <ion-slide *ngIf="this.i != 0">
     <h2>Comment jouer ?</h2>
     <p class="introContent">Nice to see you again</p>
     <img src="assets/imgs/intro-1.png" style="width: 225px" alt="">
-    <button class="skipBtn"(click)="loadSavedCards(); introEnd = true;" bottom center ion-button full clear>P<span class="skipBtnTxt">asser l'intro</span></button>
-  </ion-slide>
-  <ion-slide *ngIf="this.i == 0">
+    <button class="skipBtn"(click)="introEnd = true;" bottom center ion-button full clear>P<span class="skipBtnTxt">asser l'intro</span></button>
+  </ion-slide> -->
+  <ion-slide>
     <h2>Comment jouer ?</h2>
     <p class="introContent">ipsum.</p>
     <img src="assets/imgs/intro-1.png" style="width: 225px" alt="">
-    <button class="skipBtn"(click)="loadCards(); introEnd = true;" bottom center ion-button full clear>P<span class="skipBtnTxt">asser l'intro</span></button>
+      <button class="skipBtn"(click)="saveIntroEndTrue(); start();" bottom center ion-button full clear>P<span class="skipBtnTxt">asser l'intro</span></button>
+    <ion-row  *ngIf="this.i > 0">
+      <button class="skipBtn"(click)="introEnd = true; loadSavedCards();" bottom center ion-button full clear>R<span class="skipBtnTxt">eprendre la partie</span></button>
+    </ion-row>
   </ion-slide>
-  <ion-slide *ngIf="this.i == 0">
+  <ion-slide>
     <h2>Comment jouer ?</h2>
     <p class="introContent">dolor</p> 
     <img src="assets/imgs/intro2.png" style="width: 350px" alt="">
-    <button class="skipBtn" (click)="loadCards(); introEnd = true;" bottom center ion-button full clear>P<span class="skipBtnTxt">asser l'intro</span></button>
+    <button class="skipBtn" (click)="loadSavedCards(); introEnd = true;" bottom center ion-button full clear>P<span class="skipBtnTxt">asser l'intro</span></button>
   </ion-slide>
-  <ion-slide *ngIf="this.i == 0">
+  <ion-slide>
     <h2>Comment jouer ?</h2>
     <p class="introContent">amet</p>
     <img src="assets/imgs/intro-3.png" style="width: 225px" alt="">
-    <button class="skipBtn" (click)="loadCards(); introEnd = true;" bottom center ion-button full clear>C<span class="skipBtnTxt">'est parti !</span></button>
+    <button class="skipBtn" (click)="loadSavedCards(); introEnd = true;" bottom center ion-button full clear>C<span class="skipBtnTxt">'est parti !</span></button>
   </ion-slide>
 </ion-slides>
 
- <ion-grid *ngIf="introEnd == true">
-  <ion-slides>
-    <ion-slide ngFor="let card of cards">
+ <ion-grid *ngIf="introEnd">
+  <a class="restart" (click)="deleteStorage(); saveIntroEndFalse()">
+    Nouvelle partie
+  </a>
+  <ion-slides loop (ionSlideWillChange)="setI()">
+    <ion-slide>
       <ion-col class="answerbtn">
         <ion-card>
           <ion-card-content>
             <ion-row class="question">
-            {{cards[i].question}} 
+             <!-- <a class="restart" (click)="this.i = 1; started = true" *ngIf="this.i == 1">
+               tap to start !
+             </a> -->
+            <span>{{cards[this.i].question}}</span> 
             </ion-row>
             <ion-col class="devider">
             </ion-col>
             <ion-row class="answer ; fadeIn" *ngIf="answerVisible">
-                <ion-col col-12> {{cards[i].answer}} </ion-col>
-                <ion-col col-12><p class="moreInfo"> {{cards[i].hint}} </p></ion-col>
+                <ion-col col-12> {{cards[this.i].answer}} </ion-col>
+                <ion-col col-12><p class="moreInfo"> {{cards[this.i].hint}} </p></ion-col>
             </ion-row>            
             <ion-col class="devider">
             </ion-col>
             <ion-row class="answerbtn">
-              <button bottom center ion-button full clear (click)="answerVisible = !answerVisible">
+              <button bottom center ion-button full clear (click)="answerVisible = !answerVisible;">
                 <span *ngIf="!answerVisible">Voir la réponse</span>
                 <span *ngIf="answerVisible">Masquer la réponse</span>
               </button>
@@ -57,12 +66,9 @@
       </ion-col>{{this.i}}
     </ion-slide> 
   </ion-slides>
-    <ion-fab>
-    <button ion-fab right (click)="deleteStorage()">clear
-          </button>
-  </ion-fab> 
+
    <ion-fab bottom center>
-    <button ion-fab (click)="answerVisible = false; startText = 'Nouvelle carte'; setI();"><ion-icon name="add"></ion-icon>
+    <button ion-fab (click)="answerVisible = false; setI();"><ion-icon name="add"></ion-icon>
           </button>
   </ion-fab>
 
