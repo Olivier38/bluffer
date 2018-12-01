@@ -1,7 +1,12 @@
 page-home {
 
 	ion-content {
+		margin-top: 0vh !important;
+		padding: 0px !important;
 		background: #f2f2f2 !important;
+	}
+	h2 {
+		margin: auto 0;
 	}
 
 	.card-content {
@@ -11,20 +16,51 @@ page-home {
 
 	.introContent {
 		font-size: 0.7em;
-		margin-top: 3vh;
-		margin-bottom: 10vh;
-		margin-left: 5vw;
-		margin-right: 5vw;
+		margin: auto 20vw;
+		padding-top: 5vh;
+		padding-bottom: 10vh;
 	}
 	.skipBtn {
-		margin-top: 3vh;
+		width: 150px;
+		height: 50px;
+		margin: 0 auto;
+		background-color: #f2f2f2;
+		margin-top: 10vh;
+		border-radius: 50px;
+	}
+
+	.first-letter {
+		text-transform: uppercase;
+		color: #323232;
+
 	}
 	.skipBtnTxt {
 		text-transform: lowercase;
+		color: #323232;
+	}
+	#slide1 {
+		background-color: rgba(71,190,207, .2);
+	}
+	#slide2 {
+		background-color: rgba(232,97,63, .2);
+	}
+	#slide3 {
+		background-color: rgba(71,190,207, .2);
 	}
 
-	.question {
-		background-image: linear-gradient(to left top, #0087cc, #009ed6, #00b2d3, #00c5c7, #16d6b4); 
+
+	.question { 
+		background: {
+        image: linear-gradient(to right bottom, #16d6b4, #00c6c7, #00b3d3, #009ed5, #0088cc);
+        position: center;
+        repeat: no-repeat;
+ }
+/* background-image: -webkit-linear-gradient(bottom right, #0087cc, #009ed6, #00b2d3, #00c5c7, #16d6b4);
+ background-image: -o-linear-gradient(bottom right, #0087cc, #009ed6, #00b2d3, #00c5c7, #16d6b4);
+ background-image: linear-gradient(to top left, #0087cc, #009ed6, #00b2d3, #00c5c7, #16d6b4);
+} */
+/* 	background-image: -o-linear-gradient(bottom right, #0087cc, #009ed6, #00b2d3, #00c5c7, #16d6b4);
+background-image: linear-gradient(to top left, #0087cc, #009ed6, #00b2d3, #00c5c7, #16d6b4); */
 		padding: 5vw;
 		display: flex;
 		justify-content: center;
@@ -32,11 +68,11 @@ page-home {
 		color: white;
 		font-weight: 400;
 		font-size: 1.2em;
-		min-height: 40vh;
+		min-height: 50vh;
 	}
 
 	.answer {
-		height: 20vh;
+		height: 13vh;
 		padding: 5vw;
 		display: flex;
 		justify-content: center;
@@ -51,9 +87,9 @@ page-home {
 		text-align: center;
 		opacity: 1;
 		animation-name: fadeInOpacity;
-		animation-iteration-count: 1;
+		animation-iteration-count: .7s;
 		animation-timing-function: ease-in;
-		animation-duration: 1s;
+		animation-duration: .7s;
 	}
 
 @keyframes fadeInOpacity {
@@ -73,7 +109,7 @@ page-home {
 	}
 
 	.divider {
-		height: 2vh;
+		height: 1vh;
 	}
 	.card-md {
 		border-radius: 10px;
@@ -82,24 +118,26 @@ page-home {
 
 	@keyframes fadeIn {
 		from {
-      height: 0vh;
+      height: 5vh;
     }
 
     	to {
-      height: 20vh;
+      height: 13vh;
 	}
 	}
 
     .fadeIn {
     animation-name: fadeIn;
-    animation-duration: .5s;
-    -webkit-transition: .5s ease all;
-    -moz-transition: .5s ease all;
-    -ms-transition: .5s ease all;
-    -o-transition: .5s ease all;
-    transition: .5s ease all;
+    animation-duration: .2s;
+    -webkit-transition: .2s ease all;
+    -moz-transition: .2s ease all;
+    -ms-transition: .2s ease all;
+    -o-transition: .2s ease all;
+    transition: .2s ease all;
 	}
-	.restart {
+	#restart {
+		padding-top: 1vh;
+		margin-bottom: -2vh;
 		text-align: center;
 		font-size: 0.9em;
 		text-decoration: none;
